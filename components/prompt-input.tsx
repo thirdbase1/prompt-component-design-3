@@ -30,6 +30,25 @@ function ArrowUpIcon() {
   )
 }
 
+function PlusIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M7 2.5V11.5M2.5 7H11.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 function ChevronDownIcon() {
   return (
     <svg
@@ -151,8 +170,15 @@ export function PromptInput({
                 y: 8,
                 transition: { duration: 0.15, ease: 'easeIn' },
               }}
-              className="flex items-center px-5 pb-4 pt-2"
+              className="flex items-center gap-3 px-5 pb-4 pt-2"
             >
+              <button
+                type="button"
+                className="flex items-center justify-center rounded-full py-1 text-foreground/50 transition-colors hover:text-foreground"
+                aria-label="Add attachment"
+              >
+                <PlusIcon />
+              </button>
               <button
                 type="button"
                 className="flex items-center gap-2 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
