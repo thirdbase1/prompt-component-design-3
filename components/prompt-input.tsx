@@ -175,7 +175,7 @@ export function PromptInput({
               filter: 'blur(6px)',
               transition: { duration: 0.22, ease: 'easeIn' },
             }}
-            className="absolute inset-x-0 top-[67px] flex -translate-y-px items-center gap-5 px-5 pt-2"
+            className="absolute inset-x-0 top-[67px] flex translate-y-px items-center gap-5 px-5 pt-2"
           >
               <button
                 type="button"
