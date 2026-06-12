@@ -132,54 +132,74 @@ export function PromptInput({
         style={{ borderRadius: 24 }}
         className="flex flex-col overflow-hidden"
       >
-        {expanded ? (
-          <motion.textarea
-            layout="position"
-            transition={TRANSITION}
-            ref={textareaRef}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault()
-                handleSubmit()
-              }
-              if (e.key === 'Escape' && value.trim() === '') {
-                setExpanded(false)
-              }
-            }}
-            placeholder="Type something"
-            rows={3}
-            aria-label="Prompt"
-            className="w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:text-muted-foreground"
-          />
-        ) : (
-          <motion.button
-            layout="position"
-            transition={TRANSITION}
-            type="button"
-            onClick={expand}
-            className="cursor-text px-5 py-[15.5px] pr-14 text-left text-sm leading-[17px] text-muted-foreground"
-            aria-label="Open prompt input"
-          >
-            Type something
-          </motion.button>
-        )}
+        <AnimatePresence mode="popLayout" initial={false}>
+          {expanded ? (
+            <motion.textarea
+              key="textarea"
+              layout="position"
+              initial={{ opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              exit={{
+                opacity: 0,
+                filter: 'blur(4px)',
+                transition: { duration: 0.12, ease: 'easeIn' },
+              }}
+              transition={TRANSITION}
+              ref={textareaRef}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault()
+                  handleSubmit()
+                }
+                if (e.key === 'Escape' && value.trim() === '') {
+                  setExpanded(false)
+                }
+              }}
+              placeholder="Type something"
+              rows={3}
+              aria-label="Prompt"
+              className="w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:text-muted-foreground"
+            />
+          ) : (
+            <motion.button
+              key="placeholder"
+              layout="position"
+              initial={{ opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              exit={{
+                opacity: 0,
+                filter: 'blur(4px)',
+                transition: { duration: 0.12, ease: 'easeIn' },
+              }}
+              transition={TRANSITION}
+              type="button"
+              onClick={expand}
+              className="cursor-text px-5 py-[15.5px] pr-14 text-left text-sm leading-[17px] text-muted-foreground"
+              aria-label="Open prompt input"
+            >
+              Type something
+            </motion.button>
+          )}
+        </AnimatePresence>
 
         {/* Footer reserves space for the button row when expanded */}
         <AnimatePresence mode="popLayout">
           {expanded && (
             <motion.div
               layout="position"
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
               animate={{
                 opacity: 1,
                 y: 0,
+                filter: 'blur(0px)',
                 transition: { duration: 0.25, delay: 0.1, ease: 'easeOut' },
               }}
               exit={{
                 opacity: 0,
                 y: 8,
+                filter: 'blur(4px)',
                 transition: { duration: 0.15, ease: 'easeIn' },
               }}
               className="flex items-center gap-5 px-5 pb-4 pt-2"
