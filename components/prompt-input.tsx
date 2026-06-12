@@ -115,30 +115,21 @@ export function PromptInput({
   return (
     <motion.div
       ref={containerRef}
-      layout
+      initial={false}
+      animate={{
+        maxWidth: expanded ? 480 : 320,
+        height: expanded ? 113 : 48,
+      }}
       transition={TRANSITION}
       onBlur={handleBlur}
       style={{ borderRadius: 24 }}
-      className={
-        'relative w-full bg-card ' +
-        (expanded ? 'max-w-[480px]' : 'max-w-[320px]')
-      }
+      className="relative w-full overflow-hidden bg-card"
     >
-      {/* Mask layer clips all inner content to the rounded container during the morph.
-          The button is intentionally NOT in here so it never gets clipped. */}
-      <motion.div
-        layout
-        transition={TRANSITION}
-        style={{ borderRadius: 24 }}
-        className="flex flex-col overflow-hidden"
-      >
-        <AnimatePresence mode="popLayout" initial={false}>
-          {expanded ? (
-            <motion.textarea
-              key="textarea"
-              layout="position"
-              transition={TRANSITION}
-              ref={textareaRef}
+      <AnimatePresence mode="popLayout" initial={false}>
+        {expanded ? (
+          <motion.textarea
+            key="textarea"
+            ref={textareaRef}
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={(e) => {
@@ -150,46 +141,42 @@ export function PromptInput({
                   setExpanded(false)
                 }
               }}
-              placeholder="Ask anything"
-              rows={3}
-              aria-label="Prompt"
-              className="w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:text-muted-foreground"
-            />
-          ) : (
-            <motion.button
-              key="placeholder"
-              layout="position"
-              transition={TRANSITION}
-              type="button"
-              onClick={expand}
-              className="cursor-text px-5 py-[15.5px] pr-14 text-left text-sm leading-[17px] text-muted-foreground"
-              aria-label="Open prompt input"
-            >
-              Ask anything
-            </motion.button>
-          )}
-        </AnimatePresence>
+            placeholder="Ask anything"
+            rows={3}
+            aria-label="Prompt"
+            className="absolute inset-x-0 top-0 w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:text-muted-foreground"
+          />
+        ) : (
+          <motion.button
+            key="placeholder"
+            type="button"
+            onClick={expand}
+            className="absolute inset-x-0 top-0 cursor-text px-5 py-[15.5px] pr-14 text-left text-sm leading-[17px] text-muted-foreground"
+            aria-label="Open prompt input"
+          >
+            Ask anything
+          </motion.button>
+        )}
+      </AnimatePresence>
 
-        {/* Footer reserves space for the button row when expanded */}
-        <AnimatePresence mode="popLayout">
-          {expanded && (
-            <motion.div
-              layout="position"
-              initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                filter: 'blur(0px)',
-                transition: { duration: 0.25, delay: 0.1, ease: 'easeOut' },
-              }}
-              exit={{
-                opacity: 0,
-                y: 10,
-                filter: 'blur(6px)',
-                transition: { duration: 0.22, ease: 'easeIn' },
-              }}
-              className="flex translate-y-[3px] items-center gap-5 px-5 pb-4 pt-2"
-            >
+      {/* Footer is pinned at its final position from the top — it never moves
+          as the surface grows; the container edge sweeps over and reveals it. */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ opacity: 0, filter: 'blur(4px)' }}
+            animate={{
+              opacity: 1,
+              filter: 'blur(0px)',
+              transition: { duration: 0.25, delay: 0.1, ease: 'easeOut' },
+            }}
+            exit={{
+              opacity: 0,
+              filter: 'blur(6px)',
+              transition: { duration: 0.22, ease: 'easeIn' },
+            }}
+            className="absolute inset-x-0 top-[67px] flex translate-y-[3px] items-center gap-5 px-5 pt-2"
+          >
               <button
                 type="button"
                 className="flex items-center gap-2 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -218,20 +205,20 @@ export function PromptInput({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
 
-      {/* Single persistent send button — never unmounts, just morphs */}
+      {/* Single persistent send button — never unmounts, just glides */}
       <motion.button
-        layout
+        initial={false}
+        animate={{
+          right: expanded ? 12 : 8,
+          bottom: expanded ? 12 : 8,
+        }}
         transition={TRANSITION}
         type="button"
         onClick={expanded ? handleSubmit : expand}
         aria-label="Send prompt"
         style={{ borderRadius: 9999 }}
-        className={
-          'absolute flex size-8 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90 ' +
-          (expanded ? 'right-3 bottom-3' : 'right-2 bottom-2')
-        }
+        className="absolute flex size-8 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90"
       >
         <ArrowUpIcon />
       </motion.button>
