@@ -144,14 +144,14 @@ export function PromptInput({
             placeholder="Ask anything"
             rows={3}
             aria-label="Prompt"
-            className="absolute inset-x-0 top-0 w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:text-muted-foreground"
+            className="absolute inset-x-0 top-0 w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:font-medium placeholder:text-muted-foreground"
           />
         ) : (
           <motion.button
             key="placeholder"
             type="button"
             onClick={expand}
-            className="absolute inset-x-0 top-0 cursor-text px-5 py-[15.5px] pr-14 text-left text-sm leading-[17px] text-muted-foreground"
+            className="absolute inset-x-0 top-0 cursor-text px-5 py-[15.5px] pr-14 text-left text-sm font-medium leading-[17px] text-muted-foreground"
             aria-label="Open prompt input"
           >
             Ask anything
