@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 
 const TRANSITION = {
   type: 'spring' as const,
@@ -12,8 +12,8 @@ const TRANSITION = {
 function ArrowUpIcon() {
   return (
     <svg
-      width="14"
-      height="14"
+      width="16"
+      height="16"
       viewBox="0 0 14 14"
       fill="none"
       aria-hidden="true"
@@ -85,12 +85,10 @@ export function PromptInput({
 
   const expand = () => {
     setExpanded(true)
-    // focus after layout animation kicks in
     requestAnimationFrame(() => textareaRef.current?.focus())
   }
 
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    // collapse only when focus leaves the whole component and it's empty
     if (
       !containerRef.current?.contains(e.relatedTarget as Node) &&
       value.trim() === ''
@@ -112,14 +110,14 @@ export function PromptInput({
       layout
       transition={TRANSITION}
       onBlur={handleBlur}
-      style={{ borderRadius: expanded ? 32 : 28 }}
+      style={{ borderRadius: 28 }}
       className={
-        'relative w-full overflow-hidden bg-card ' +
-        (expanded ? 'max-w-2xl' : 'max-w-xl')
+        'relative w-full bg-card ' + (expanded ? 'max-w-2xl' : 'max-w-xl')
       }
     >
-      {expanded ? (
-        <motion.div layout className="flex flex-col">
+      {/* Morphing content — the button is intentionally NOT in here */}
+      <motion.div layout="position" className="flex flex-col">
+        {expanded ? (
           <textarea
             ref={textareaRef}
             value={value}
@@ -136,60 +134,60 @@ export function PromptInput({
             placeholder="Type something"
             rows={4}
             aria-label="Prompt"
-            className="w-full resize-none bg-transparent px-7 pt-6 text-lg leading-relaxed text-foreground outline-none placeholder:text-muted-foreground"
+            className="w-full resize-none bg-transparent px-7 pt-6 pr-20 text-lg leading-relaxed text-foreground outline-none placeholder:text-muted-foreground"
           />
-          <motion.div
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.25, delay: 0.1 }}
-            className="flex items-center justify-between px-7 pb-5 pt-2"
-          >
-            <button
-              type="button"
-              className="flex items-center gap-2.5 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              aria-label="Select model: Fable 5"
-            >
-              <StarburstIcon />
-              <span className="text-base font-medium text-foreground/80">
-                Fable 5
-              </span>
-              <ChevronDownIcon />
-            </button>
-            <motion.button
-              layoutId="send-button"
-              transition={TRANSITION}
-              type="button"
-              onClick={handleSubmit}
-              aria-label="Send prompt"
-              className="flex size-12 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:opacity-90"
-            >
-              <ArrowUpIcon />
-            </motion.button>
-          </motion.div>
-        </motion.div>
-      ) : (
-        <motion.div layout className="flex items-center justify-between p-2">
+        ) : (
           <button
             type="button"
             onClick={expand}
-            className="flex-1 cursor-text px-4 py-2 text-left text-base text-muted-foreground"
+            className="cursor-text px-6 py-[1.375rem] pr-20 text-left text-base text-muted-foreground"
             aria-label="Open prompt input"
           >
             Type something
           </button>
-          <motion.button
-            layoutId="send-button"
-            transition={TRANSITION}
-            type="button"
-            onClick={expand}
-            aria-label="Send prompt"
-            className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:opacity-90"
-          >
-            <ArrowUpIcon />
-          </motion.button>
-        </motion.div>
-      )}
+        )}
+
+        {/* Footer reserves space for the button row when expanded */}
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, delay: 0.08 }}
+              className="flex items-center px-7 pb-5 pt-2"
+            >
+              <button
+                type="button"
+                className="flex items-center gap-2.5 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                aria-label="Select model: Fable 5"
+              >
+                <StarburstIcon />
+                <span className="text-base font-medium text-foreground/80">
+                  Fable 5
+                </span>
+                <ChevronDownIcon />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Single persistent send button — never unmounts, just morphs */}
+      <motion.button
+        layout
+        transition={TRANSITION}
+        type="button"
+        onClick={expanded ? handleSubmit : expand}
+        aria-label="Send prompt"
+        style={{ borderRadius: 9999 }}
+        className={
+          'absolute right-2 bottom-2 flex items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90 ' +
+          (expanded ? 'size-12 right-5 bottom-5' : 'size-10')
+        }
+      >
+        <ArrowUpIcon />
+      </motion.button>
     </motion.div>
   )
 }
