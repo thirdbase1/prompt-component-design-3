@@ -182,7 +182,7 @@ export function PromptInput({
                 aria-label="Select model: Fable 5"
               >
                 <StarburstIcon />
-                <span className="text-sm font-medium text-foreground/80">
+                <span className="text-sm font-medium text-foreground/50">
                   Fable 5
                 </span>
                 <ChevronDownIcon />
