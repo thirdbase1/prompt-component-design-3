@@ -184,9 +184,9 @@ export function PromptInput({
               }}
               exit={{
                 opacity: 0,
-                y: 8,
-                filter: 'blur(4px)',
-                transition: { duration: 0.15, ease: 'easeIn' },
+                y: 10,
+                filter: 'blur(6px)',
+                transition: { duration: 0.22, ease: 'easeIn' },
               }}
               className="flex translate-y-[3px] items-center gap-5 px-5 pb-4 pt-2"
             >
