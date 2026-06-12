@@ -188,7 +188,7 @@ export function PromptInput({
                 filter: 'blur(4px)',
                 transition: { duration: 0.15, ease: 'easeIn' },
               }}
-              className="flex items-center gap-5 px-5 pb-4 pt-2"
+              className="flex translate-y-1 items-center gap-5 px-5 pb-4 pt-2"
             >
               <button
                 type="button"
