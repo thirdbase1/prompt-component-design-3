@@ -208,17 +208,11 @@ export function PromptInput({
 
       {/* Single persistent send button — never unmounts, just glides */}
       <motion.button
-        initial={false}
-        animate={{
-          right: expanded ? 12 : 8,
-          bottom: expanded ? 12 : 8,
-        }}
-        transition={TRANSITION}
         type="button"
         onClick={expanded ? handleSubmit : expand}
         aria-label="Send prompt"
         style={{ borderRadius: 9999 }}
-        className="absolute flex size-8 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90"
+        className="absolute right-2 bottom-2 flex size-8 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90"
       >
         <ArrowUpIcon />
       </motion.button>
