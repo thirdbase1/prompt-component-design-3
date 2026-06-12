@@ -137,13 +137,6 @@ export function PromptInput({
             <motion.textarea
               key="textarea"
               layout="position"
-              initial={{ opacity: 0, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, filter: 'blur(0px)' }}
-              exit={{
-                opacity: 0,
-                filter: 'blur(4px)',
-                transition: { duration: 0.12, ease: 'easeIn' },
-              }}
               transition={TRANSITION}
               ref={textareaRef}
               value={value}
@@ -166,13 +159,6 @@ export function PromptInput({
             <motion.button
               key="placeholder"
               layout="position"
-              initial={{ opacity: 0, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, filter: 'blur(0px)' }}
-              exit={{
-                opacity: 0,
-                filter: 'blur(4px)',
-                transition: { duration: 0.12, ease: 'easeIn' },
-              }}
               transition={TRANSITION}
               type="button"
               onClick={expand}
