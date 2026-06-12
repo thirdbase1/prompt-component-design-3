@@ -150,7 +150,7 @@ export function PromptInput({
                   setExpanded(false)
                 }
               }}
-              placeholder="Type something"
+              placeholder="Ask anything"
               rows={3}
               aria-label="Prompt"
               className="w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:text-muted-foreground"
@@ -165,7 +165,7 @@ export function PromptInput({
               className="cursor-text px-5 py-[15.5px] pr-14 text-left text-sm leading-[17px] text-muted-foreground"
               aria-label="Open prompt input"
             >
-              Type something
+              Ask anything
             </motion.button>
           )}
         </AnimatePresence>
