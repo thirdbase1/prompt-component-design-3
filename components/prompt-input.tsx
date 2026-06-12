@@ -113,7 +113,7 @@ export function PromptInput({
       style={{ borderRadius: 24 }}
       className={
         'relative w-full bg-card ' +
-        (expanded ? 'max-w-[480px]' : 'max-w-[383px]')
+        (expanded ? 'max-w-[480px]' : 'max-w-[320px]')
       }
     >
       {/* Mask layer clips all inner content to the rounded container during the morph.
