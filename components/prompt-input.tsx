@@ -12,8 +12,8 @@ const TRANSITION = {
 function ArrowUpIcon() {
   return (
     <svg
-      width="16"
-      height="16"
+      width="12"
+      height="12"
       viewBox="0 0 14 14"
       fill="none"
       aria-hidden="true"
@@ -32,8 +32,8 @@ function ArrowUpIcon() {
 function StarburstIcon() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="15"
+      height="15"
       viewBox="0 0 18 18"
       fill="none"
       aria-hidden="true"
@@ -110,9 +110,10 @@ export function PromptInput({
       layout
       transition={TRANSITION}
       onBlur={handleBlur}
-      style={{ borderRadius: 28 }}
+      style={{ borderRadius: 24 }}
       className={
-        'relative w-full bg-card ' + (expanded ? 'max-w-2xl' : 'max-w-xl')
+        'relative w-full bg-card ' +
+        (expanded ? 'max-w-[480px]' : 'max-w-[383px]')
       }
     >
       {/* Mask layer clips all inner content to the rounded container during the morph.
@@ -120,7 +121,7 @@ export function PromptInput({
       <motion.div
         layout
         transition={TRANSITION}
-        style={{ borderRadius: 28 }}
+        style={{ borderRadius: 24 }}
         className="flex flex-col overflow-hidden"
       >
         {expanded ? (
@@ -140,9 +141,9 @@ export function PromptInput({
               }
             }}
             placeholder="Type something"
-            rows={4}
+            rows={3}
             aria-label="Prompt"
-            className="w-full resize-none bg-transparent px-7 pt-[26px] pr-20 text-lg leading-normal text-foreground outline-none placeholder:text-muted-foreground"
+            className="w-full resize-none bg-transparent px-5 pt-4 pr-14 text-sm leading-[17px] text-foreground outline-none placeholder:text-muted-foreground"
           />
         ) : (
           <motion.button
@@ -150,7 +151,7 @@ export function PromptInput({
             transition={TRANSITION}
             type="button"
             onClick={expand}
-            className="cursor-text px-7 py-[26px] pr-20 text-left text-lg leading-normal text-muted-foreground"
+            className="cursor-text px-5 py-[15.5px] pr-14 text-left text-sm leading-[17px] text-muted-foreground"
             aria-label="Open prompt input"
           >
             Type something
@@ -173,15 +174,15 @@ export function PromptInput({
                 y: 8,
                 transition: { duration: 0.15, ease: 'easeIn' },
               }}
-              className="flex items-center px-7 pb-6 pt-3"
+              className="flex items-center px-5 pb-4 pt-2"
             >
               <button
                 type="button"
-                className="flex items-center gap-2.5 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="flex items-center gap-2 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
                 aria-label="Select model: Fable 5"
               >
                 <StarburstIcon />
-                <span className="text-base font-medium text-foreground/80">
+                <span className="text-sm font-medium text-foreground/80">
                   Fable 5
                 </span>
                 <ChevronDownIcon />
@@ -200,8 +201,8 @@ export function PromptInput({
         aria-label="Send prompt"
         style={{ borderRadius: 9999 }}
         className={
-          'absolute flex size-12 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90 ' +
-          (expanded ? 'right-5 bottom-5' : 'right-4 bottom-4')
+          'absolute flex size-8 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90 ' +
+          (expanded ? 'right-3 bottom-3' : 'right-2 bottom-2')
         }
       >
         <ArrowUpIcon />
