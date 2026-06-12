@@ -49,6 +49,38 @@ function PlusIcon() {
   )
 }
 
+function BarsIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect x="1.5" y="8" width="2.5" height="4.5" rx="1" fill="currentColor" />
+      <rect
+        x="5.75"
+        y="5"
+        width="2.5"
+        height="7.5"
+        rx="1"
+        fill="currentColor"
+        opacity="0.7"
+      />
+      <rect
+        x="10"
+        y="2"
+        width="2.5"
+        height="10.5"
+        rx="1"
+        fill="currentColor"
+        opacity="0.4"
+      />
+    </svg>
+  )
+}
+
 function ChevronDownIcon() {
   return (
     <svg
@@ -174,13 +206,6 @@ export function PromptInput({
             >
               <button
                 type="button"
-                className="flex items-center justify-center rounded-full py-1 text-foreground/50 transition-colors hover:text-foreground"
-                aria-label="Add attachment"
-              >
-                <PlusIcon />
-              </button>
-              <button
-                type="button"
                 className="flex items-center gap-2 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
                 aria-label="Select model: Fable 5"
               >
@@ -189,6 +214,21 @@ export function PromptInput({
                   Fable 5
                 </span>
                 <ChevronDownIcon />
+              </button>
+              <button
+                type="button"
+                className="flex items-center gap-1.5 rounded-full py-1 text-foreground/50 transition-colors hover:text-foreground"
+                aria-label="Select effort level: Medium"
+              >
+                <BarsIcon />
+                <span className="text-sm font-medium">Medium</span>
+              </button>
+              <button
+                type="button"
+                className="ml-auto mr-9 flex items-center justify-center rounded-full py-1 text-foreground/50 transition-colors hover:text-foreground"
+                aria-label="Add attachment"
+              >
+                <PlusIcon />
               </button>
             </motion.div>
           )}
