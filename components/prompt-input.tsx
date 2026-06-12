@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
+import { FableIcon } from '@/components/fable-icon'
 
 const TRANSITION = {
   type: 'spring' as const,
@@ -25,30 +26,6 @@ function ArrowUpIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
-  )
-}
-
-function StarburstIcon() {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 18 18"
-      fill="none"
-      aria-hidden="true"
-      className="text-accent"
-    >
-      <g stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-        {Array.from({ length: 12 }).map((_, i) => {
-          const angle = (i * 30 * Math.PI) / 180
-          const x1 = 9 + Math.cos(angle) * 3
-          const y1 = 9 + Math.sin(angle) * 3
-          const x2 = 9 + Math.cos(angle) * 7.5
-          const y2 = 9 + Math.sin(angle) * 7.5
-          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />
-        })}
-      </g>
     </svg>
   )
 }
@@ -181,7 +158,7 @@ export function PromptInput({
                 className="flex items-center gap-2 rounded-full py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
                 aria-label="Select model: Fable 5"
               >
-                <StarburstIcon />
+                <FableIcon />
                 <span className="text-sm font-medium text-foreground/50">
                   Fable 5
                 </span>
