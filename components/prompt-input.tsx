@@ -115,8 +115,14 @@ export function PromptInput({
         'relative w-full bg-card ' + (expanded ? 'max-w-2xl' : 'max-w-xl')
       }
     >
-      {/* Morphing content — the button is intentionally NOT in here */}
-      <div className="flex flex-col">
+      {/* Mask layer clips all inner content to the rounded container during the morph.
+          The button is intentionally NOT in here so it never gets clipped. */}
+      <motion.div
+        layout
+        transition={TRANSITION}
+        style={{ borderRadius: 28 }}
+        className="flex flex-col overflow-hidden"
+      >
         {expanded ? (
           <motion.textarea
             layout="position"
@@ -183,7 +189,7 @@ export function PromptInput({
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
 
       {/* Single persistent send button — never unmounts, just morphs */}
       <motion.button
