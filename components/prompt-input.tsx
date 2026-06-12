@@ -116,9 +116,11 @@ export function PromptInput({
       }
     >
       {/* Morphing content — the button is intentionally NOT in here */}
-      <motion.div layout="position" className="flex flex-col">
+      <div className="flex flex-col">
         {expanded ? (
-          <textarea
+          <motion.textarea
+            layout="position"
+            transition={TRANSITION}
             ref={textareaRef}
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -137,24 +139,34 @@ export function PromptInput({
             className="w-full resize-none bg-transparent px-7 pt-[26px] pr-20 text-lg leading-normal text-foreground outline-none placeholder:text-muted-foreground"
           />
         ) : (
-          <button
+          <motion.button
+            layout="position"
+            transition={TRANSITION}
             type="button"
             onClick={expand}
             className="cursor-text px-7 py-[26px] pr-20 text-left text-lg leading-normal text-muted-foreground"
             aria-label="Open prompt input"
           >
             Type something
-          </button>
+          </motion.button>
         )}
 
         {/* Footer reserves space for the button row when expanded */}
         <AnimatePresence mode="popLayout">
           {expanded && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.1 } }}
-              transition={{ duration: 0.2, delay: 0.08 }}
+              layout="position"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.25, delay: 0.1, ease: 'easeOut' },
+              }}
+              exit={{
+                opacity: 0,
+                y: 8,
+                transition: { duration: 0.15, ease: 'easeIn' },
+              }}
               className="flex items-center px-7 pb-6 pt-3"
             >
               <button
@@ -171,7 +183,7 @@ export function PromptInput({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Single persistent send button — never unmounts, just morphs */}
       <motion.button
