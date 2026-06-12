@@ -30,6 +30,34 @@ function ArrowUpIcon() {
   )
 }
 
+function MicIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect
+        x="5"
+        y="1"
+        width="4"
+        height="7"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M2.75 6.5V7a4.25 4.25 0 0 0 8.5 0v-.5M7 11.25V13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 function PlusIcon() {
   return (
     <svg
@@ -88,6 +116,7 @@ export function PromptInput({
 }) {
   const [expanded, setExpanded] = useState(false)
   const [value, setValue] = useState('')
+  const hasValue = value.trim() !== ''
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -210,11 +239,35 @@ export function PromptInput({
       <motion.button
         type="button"
         onClick={expanded ? handleSubmit : expand}
-        aria-label="Send prompt"
+        aria-label={hasValue ? 'Send prompt' : 'Use voice input'}
         style={{ borderRadius: 9999 }}
         className="absolute right-2 bottom-2 flex size-8 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90"
       >
-        <ArrowUpIcon />
+        <AnimatePresence mode="popLayout" initial={false}>
+          {hasValue ? (
+            <motion.span
+              key="arrow"
+              initial={{ opacity: 0, scale: 0.5, filter: 'blur(2px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.5, filter: 'blur(2px)' }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+              className="flex items-center justify-center"
+            >
+              <ArrowUpIcon />
+            </motion.span>
+          ) : (
+            <motion.span
+              key="mic"
+              initial={{ opacity: 0, scale: 0.5, filter: 'blur(2px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.5, filter: 'blur(2px)' }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+              className="flex items-center justify-center"
+            >
+              <MicIcon />
+            </motion.span>
+          )}
+        </AnimatePresence>
       </motion.button>
     </motion.div>
   )
