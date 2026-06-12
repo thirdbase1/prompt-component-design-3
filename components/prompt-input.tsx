@@ -134,13 +134,13 @@ export function PromptInput({
             placeholder="Type something"
             rows={4}
             aria-label="Prompt"
-            className="w-full resize-none bg-transparent px-7 pt-6 pr-20 text-lg leading-relaxed text-foreground outline-none placeholder:text-muted-foreground"
+            className="w-full resize-none bg-transparent px-7 pt-[26px] pr-20 text-lg leading-normal text-foreground outline-none placeholder:text-muted-foreground"
           />
         ) : (
           <button
             type="button"
             onClick={expand}
-            className="cursor-text px-6 py-[1.375rem] pr-20 text-left text-base text-muted-foreground"
+            className="cursor-text px-7 py-[26px] pr-20 text-left text-lg leading-normal text-muted-foreground"
             aria-label="Open prompt input"
           >
             Type something
@@ -148,14 +148,14 @@ export function PromptInput({
         )}
 
         {/* Footer reserves space for the button row when expanded */}
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {expanded && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.1 } }}
               transition={{ duration: 0.2, delay: 0.08 }}
-              className="flex items-center px-7 pb-5 pt-2"
+              className="flex items-center px-7 pb-6 pt-3"
             >
               <button
                 type="button"
@@ -182,8 +182,8 @@ export function PromptInput({
         aria-label="Send prompt"
         style={{ borderRadius: 9999 }}
         className={
-          'absolute right-2 bottom-2 flex items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90 ' +
-          (expanded ? 'size-12 right-5 bottom-5' : 'size-10')
+          'absolute flex size-12 items-center justify-center bg-accent text-accent-foreground transition-opacity hover:opacity-90 ' +
+          (expanded ? 'right-5 bottom-5' : 'right-4 bottom-4')
         }
       >
         <ArrowUpIcon />
